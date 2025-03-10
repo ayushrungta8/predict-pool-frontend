@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useSignMessage } from "wagmi";
 import { PredictionWithDetails, Prediction, Round } from "@/types/prediction";
 
 export const usePredictions = (rounds: Round[]) => {
   const { address } = useAccount();
+  const { signMessageAsync } = useSignMessage();
   const [userPredictions, setUserPredictions] = useState<
     Record<number, PredictionWithDetails>
   >({});
@@ -49,11 +50,14 @@ export const usePredictions = (rounds: Round[]) => {
     }
 
     try {
+      const message = `Predict ${direction} for round ${roundId}`;
+      const signature = await signMessageAsync({ message });
+
       const prediction: Prediction = {
         address: address,
         round_id: roundId,
         direction,
-        signature: "", // TODO: Add signature when required
+        signature,
       };
 
       const response = await fetch(
