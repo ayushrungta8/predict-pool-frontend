@@ -24,8 +24,11 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>MON Staking</title>
-        <meta content="Stake your MON tokens" name="description" />
+        <title>Predict Pool</title>
+        <meta
+          content="Stake your MON tokens to participate in predictions and earn rewards."
+          name="description"
+        />
         <link href="/favicon.ico" rel="icon" />
       </Head>
 

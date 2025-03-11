@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { Round, Epoch } from "@/types/prediction";
 
+interface EpochData {
+  id: number;
+  start_time: string;
+  rounds: number;
+}
+
 export const useRounds = () => {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [relevantRound, setRelevantRound] = useState<Round | null>(null);
+  const [upcomingEpochs, setUpcomingEpochs] = useState<EpochData[]>([]);
 
   const fetchCurrentEpoch = async (): Promise<Epoch | null> => {
     try {
@@ -56,8 +63,35 @@ export const useRounds = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const fetchUpcomingEpochs = async () => {
+      if (!relevantRound?.epoch_id) return;
+
+      try {
+        const nextTwoEpochs = await Promise.all([
+          fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/epochs/${
+              relevantRound.epoch_id + 1
+            }`
+          ).then((res) => res.json()),
+          // fetch(
+          //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/epochs/${
+          //     relevantRound.epoch_id + 2
+          //   }`
+          // ).then((res) => res.json()),
+        ]);
+        setUpcomingEpochs(nextTwoEpochs);
+      } catch (error) {
+        console.error("Failed to fetch upcoming epochs:", error);
+      }
+    };
+
+    fetchUpcomingEpochs();
+  }, [relevantRound?.epoch_id]);
+
   return {
     rounds: rounds.sort((a, b) => a.id - b.id),
     relevantRound,
+    upcomingEpochs,
   };
 };

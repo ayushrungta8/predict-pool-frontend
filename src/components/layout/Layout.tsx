@@ -1,6 +1,8 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import logo from "../../../public/logo.png";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,10 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <div className="flex justify-between items-center mb-12">
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-3">
-              <div className="bg-purple-600 rounded-full p-2">
-                <span className="text-white font-bold">MON</span>
-              </div>
-              <h1 className="text-2xl font-bold text-white">Predict Pool</h1>
+              <Image src={logo} alt="Predict Pool" height={42} />
             </div>
             {/* Navigation Links */}
             <nav className="flex space-x-6">
