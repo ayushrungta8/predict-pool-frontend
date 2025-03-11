@@ -8,6 +8,7 @@ export const usePredictions = (rounds: Round[]) => {
   const [userPredictions, setUserPredictions] = useState<
     Record<number, PredictionWithDetails>
   >({});
+  const [error, setError] = useState<string | null>(null);
   const previousActiveRoundRef = useRef<number | null>(null);
 
   const fetchUserPredictions = async () => {
@@ -50,6 +51,7 @@ export const usePredictions = (rounds: Round[]) => {
     }
 
     try {
+      setError(null); // Clear any previous errors
       const message = `Predict ${direction} for round ${roundId}`;
       const signature = await signMessageAsync({ message });
 
@@ -68,6 +70,12 @@ export const usePredictions = (rounds: Round[]) => {
           body: JSON.stringify(prediction),
         }
       );
+
+      if (response.status === 403) {
+        const errorData = await response.json();
+        setError(errorData.error || "You are not eligible to make predictions");
+        return;
+      }
 
       if (!response.ok) throw new Error("Failed to submit prediction");
       await fetchUserPredictions();
@@ -92,5 +100,5 @@ export const usePredictions = (rounds: Round[]) => {
     }
   }, [rounds, address]);
 
-  return { userPredictions, submitPrediction };
+  return { userPredictions, submitPrediction, error };
 };

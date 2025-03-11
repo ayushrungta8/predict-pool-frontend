@@ -6,11 +6,12 @@ import { useRounds } from "@/hooks/useRounds";
 import { usePredictions } from "@/hooks/usePredictions";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { start } from "repl";
+import Link from "next/link";
 
 const RoundsTimeline = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { rounds, relevantRound, upcomingEpochs } = useRounds();
-  const { userPredictions, submitPrediction } = usePredictions(rounds);
+  const { userPredictions, submitPrediction, error } = usePredictions(rounds);
   const [nextEpochTimer, setNextEpochTimer] = useState<string>("");
 
   useEffect(() => {
@@ -97,6 +98,19 @@ const RoundsTimeline = () => {
   }
   return (
     <div className="space-y-12">
+      {/* Show error message if exists */}
+      {error && (
+        <div className="mx-8 p-4 bg-red-900/50 border border-red-700 rounded-lg">
+          <p className="text-red-200 text-sm">{error}</p>
+          <Link
+            href="/"
+            className="text-red-200 text-sm hover:text-red-300 transition-colors font-bold underline"
+          >
+            Stake tokens to participate
+          </Link>
+        </div>
+      )}
+
       {/* Epochs Section */}
       <div className="space-y-8">
         {/* Current Epoch */}

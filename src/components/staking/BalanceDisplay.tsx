@@ -15,14 +15,14 @@ export const BalanceDisplay = ({
 }: BalanceDisplayProps) => {
   return (
     <div className="flex flex-col space-y-1 w-full">
-      {balance && (
+      {balance ? (
         <div className="flex justify-between items-center">
           <span className="text-gray-400">Wallet Balance:</span>
           <span className="text-gray-300">
             {balance ? formatEther(balance) : "0"} MON
           </span>
         </div>
-      )}
+      ) : null}
       {isStakedBalanceLoading ? (
         <div className="flex justify-between items-center">
           <span className="text-gray-400">Staked Balance:</span>
