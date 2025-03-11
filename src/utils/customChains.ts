@@ -20,9 +20,9 @@ export const monadTestnet = defineChain({
   },
 });
 
-export const monadHardhat = defineChain({
-  id: 31337,
-  name: "Monad Hardhat",
-  nativeCurrency: { name: "Monad", symbol: "MON", decimals: 18 },
-  rpcUrls: { default: { http: ["http://localhost:8545"] } },
-});
+// export const monadHardhat = defineChain({
+//   id: 31337,
+//   name: "Monad Hardhat",
+//   nativeCurrency: { name: "Monad", symbol: "MON", decimals: 18 },
+//   rpcUrls: { default: { http: ["http://localhost:8545"] } },
+// });

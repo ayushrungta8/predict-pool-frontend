@@ -24,6 +24,9 @@ export const PredictionsTable = ({
         <thead>
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+              Epoch
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
               Round
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
@@ -53,6 +56,9 @@ export const PredictionsTable = ({
 
             return (
               <tr key={prediction.round_id} className="hover:bg-gray-800/30">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  #{prediction.epoch_id}
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                   #{prediction.round_id}
                 </td>

@@ -29,15 +29,15 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-8">
+      <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-8 max-w-2xl mx-auto">
         <StakeForm stakedBalance={stakedBalance as bigint | undefined} />
       </div>
 
-      <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-8 mt-6">
+      <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-8 mt-6 max-w-2xl mx-auto">
         <WithdrawForm stakedBalance={stakedBalance as bigint | undefined} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-2xl mx-auto">
         <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-white mb-2">
             About Staking
