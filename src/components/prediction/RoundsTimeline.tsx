@@ -147,9 +147,26 @@ const RoundsTimeline = () => {
             {/* Rounds carousel with round counter */}
             <div
               ref={scrollContainerRef}
-              className="flex gap-6 overflow-x-auto px-32 py-4 scrollbar-hide scroll-smooth"
-              style={{ paddingRight: "calc(128px + 280px)" }}
+              className="flex gap-6 overflow-x-auto px-32 py-4 scroll-smooth"
+              style={{
+                paddingRight: "calc(128px + 280px)",
+                // Custom scrollbar styles
+                scrollbarWidth: "thin",
+                scrollbarColor: "rgb(75 85 99) transparent",
+              }}
             >
+              <style jsx>{`
+                div::-webkit-scrollbar {
+                  height: 6px;
+                }
+                div::-webkit-scrollbar-track {
+                  background: transparent;
+                }
+                div::-webkit-scrollbar-thumb {
+                  background-color: rgb(75 85 99);
+                  border-radius: 20px;
+                }
+              `}</style>
               {rounds.map((round, index) => (
                 <div
                   key={round.id}
